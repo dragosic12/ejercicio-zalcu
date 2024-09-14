@@ -38,7 +38,7 @@ self.addEventListener('push', event => {
     const title = data.title || 'Notificación';
     const options = {
       body: data.body || 'Tienes una nueva imagen lista.',
-      icon: data.icon || '/icon-192x192.png'
+      icon: data.icon || '/logo192.png'
     };
   
     event.waitUntil(
