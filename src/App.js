@@ -41,6 +41,19 @@ function App() {
       });
 
       notification.onclick = () => {
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          // Si es móvil, simplemente abre la imagen en una nueva pestaña
+          window.open(imageUrl, '_blank');
+        } else {
+          // Si es desktop, permitir la descarga
+          const a = document.createElement('a');
+          a.href = imageUrl;
+          a.download = 'imagen-generada.png';  // Nombre del archivo descargado
+          a.click();
+        }
+      };
+
+      notification.onclick = () => {
         // Crear un enlace temporal para descargar la imagen
         const a = document.createElement('a');
         a.href = imageUrl;
@@ -51,6 +64,9 @@ function App() {
       };
     }
   };
+
+  
+
 
   // Función para enviar el texto y generar la imagen
   const handleGenerateImage = async () => {
