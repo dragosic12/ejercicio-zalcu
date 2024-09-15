@@ -32,35 +32,34 @@ function App() {
   }, []);
 
   // Función para enviar una notificación push cuando la imagen está lista
-  const sendNotification = (imageBlob) => {
+  const sendNotification = (imageUrl) => {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification('Imagen lista para descargar', {
         body: 'Haz clic para descargar tu imagen.',
-        icon: URL.createObjectURL(imageBlob),  // Mostrar la imagen generada como ícono de la notificación
+        icon: imageUrl,  // Puedes mostrar la imagen generada como ícono de la notificación
         requireInteraction: true,  // Mantener la notificación visible hasta que se haga clic
       });
   
       notification.onclick = () => {
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(imageBlob);
+        const a = document.createElement('a');
+        a.href = imageUrl;
+  
+        // Descargar con nombre diferente en función del dispositivo
+        const fileName = `${inputText} estilo ${selectedStyle}.png`;
+        a.download = fileName;
+  
+        // Intentar descargar en móvil y escritorio
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          // Para dispositivos móviles, forzar el atributo 'download' y simular clic para descargar
+          a.target = '_self';  // Asegurarse de no abrir una nueva pestaña
+        }
         
-        link.href = url;
-        link.download = `${inputText} estilo ${selectedStyle}.png`;  // Asignar nombre al archivo
-        
-        // Para móviles, forzar la descarga sin abrir nueva pestaña
-        link.target = '_self';
-        
-        // Forzar el clic del enlace para iniciar la descarga
-        document.body.appendChild(link);
-        link.click();
-        
-        // Limpiar después de descargar
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);  // Liberar memoria
+        document.body.appendChild(a);
+        a.click();  // Simular clic para descargar
+        document.body.removeChild(a);  // Eliminar el enlace después de la descarga
       };
     }
   };
-  
   
 
   
