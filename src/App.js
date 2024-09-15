@@ -36,31 +36,21 @@ function App() {
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification('Imagen lista para descargar', {
         body: 'Haz clic para descargar tu imagen.',
-        icon: imageUrl,  // Puedes mostrar la imagen generada como ícono de la notificación
+        icon: imageUrl,  // Opcional: Puedes mostrar la imagen generada como ícono de la notificación
         requireInteraction: true,  // Mantener la notificación visible hasta que se haga clic
       });
-  
+
       notification.onclick = () => {
+        // Crear un enlace temporal para descargar la imagen
         const a = document.createElement('a');
         a.href = imageUrl;
-  
-        // Descargar con nombre diferente en función del dispositivo
-        const fileName = `${inputText} estilo ${selectedStyle}.png`;
-        a.download = fileName;
-  
-        // Intentar descargar en móvil y escritorio
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-          // Para dispositivos móviles, forzar el atributo 'download' y simular clic para descargar
-          a.target = '_self';  // Asegurarse de no abrir una nueva pestaña
-        }
-        
-        document.body.appendChild(a);
-        a.click();  // Simular clic para descargar
+        a.download = `${inputText} estilo ${selectedStyle}.png`;  // Nombre del archivo que se descargará
+        document.body.appendChild(a);  // Agregar el enlace al DOM
+        a.click();  // Simular el clic para descargar la imagen
         document.body.removeChild(a);  // Eliminar el enlace después de la descarga
       };
     }
   };
-  
 
   
 
