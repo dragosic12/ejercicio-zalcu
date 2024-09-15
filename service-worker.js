@@ -46,10 +46,24 @@ self.addEventListener('push', event => {
     );
   });
   
-  self.addEventListener('notificationclick', event => {
-    event.notification.close();
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close();  // Cierra la notificación cuando se hace clic en ella
+  
+    // Verifica si hay ventanas abiertas de la PWA
     event.waitUntil(
-      clients.openWindow('/')  // Aquí puedes redirigir a la URL de la app
+      clients.matchAll({ type: 'window' }).then(clientList => {
+        // Si la PWA ya está abierta, enfoca la ventana
+        for (let i = 0; i < clientList.length; i++) {
+          let client = clientList[i];
+          if (client.url === '/' && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        // Si no, abre una nueva ventana
+        if (clients.openWindow) {
+          return clients.openWindow('/');
+        }
+      })
     );
   });
   
