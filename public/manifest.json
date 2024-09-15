@@ -2,7 +2,7 @@
   "name": "Generador de Imágenes",
   "short_name": "Generador",
   "description": "Una app para generar imágenes con IA",
-  "start_url": "/",
+  "start_url": "https://dragosic12.github.io/ejercicio-zalcu/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#333333",
