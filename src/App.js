@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css';  // Ajusta el nombre del archivo según tu estructura
 
 function App() {
   const [inputText, setInputText] = useState('');  // Para el texto ingresado
@@ -7,8 +8,8 @@ function App() {
   const [loading, setLoading] = useState(false);   // Para mostrar un mensaje mientras se genera la imagen
   const [selectedStyle, setSelectedStyle] = useState('imagen');  // Para el estilo seleccionado
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
           console.log('Service Worker registrado con éxito:', registration);
@@ -16,8 +17,10 @@ function App() {
         .catch(error => {
           console.log('Error al registrar el Service Worker:', error);
         });
-    });
-  }
+    } else {
+      console.log('Service Worker no es compatible en este navegador.');
+    }
+  }, []);
   
 
   // Solicitar permisos para notificaciones push
@@ -121,6 +124,12 @@ function App() {
               disabled={loading}
             />
           </div>
+          <div><h1>Notificaciones Push</h1>
+      {isSubscribed ? (
+        <p>Ya estás suscrito a las notificaciones.</p>
+      ) : (
+        <button onClick={handleSubscribe}>Suscribirse a Notificaciones</button>
+      )}</div>
           <div className="mt-3">
             <label htmlFor="selectStyle">Selecciona el estilo:</label>
             <select
