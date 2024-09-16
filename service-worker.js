@@ -37,7 +37,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('push', event => {
   console.log('Push recibido');
-  
+
   const title = 'Notificación';
   const options = {
     body: 'Tienes una nueva imagen lista.',
@@ -48,6 +48,7 @@ self.addEventListener('push', event => {
     self.registration.showNotification(title, options)
   );
 });
+
 
 self.addEventListener('notificationclick', event => {
   console.log('Notificación clickeada');
