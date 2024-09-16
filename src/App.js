@@ -124,12 +124,6 @@ function App() {
               disabled={loading}
             />
           </div>
-          <div><h1>Notificaciones Push</h1>
-      {isSubscribed ? (
-        <p>Ya estás suscrito a las notificaciones.</p>
-      ) : (
-        <button onClick={handleSubscribe}>Suscribirse a Notificaciones</button>
-      )}</div>
           <div className="mt-3">
             <label htmlFor="selectStyle">Selecciona el estilo:</label>
             <select
