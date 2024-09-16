@@ -8,8 +8,8 @@ function App() {
   const [loading, setLoading] = useState(false);   // Para mostrar un mensaje mientras se genera la imagen
   const [selectedStyle, setSelectedStyle] = useState('imagen');  // Para el estilo seleccionado
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
           console.log('Service Worker registrado con éxito:', registration);
@@ -17,10 +17,11 @@ function App() {
         .catch(error => {
           console.log('Error al registrar el Service Worker:', error);
         });
-    } else {
-      console.log('Service Worker no es compatible en este navegador.');
-    }
-  }, []);
+    });
+  } else {
+    console.log('Service Worker no es compatible en este navegador.');
+  }
+  
   
 
   // Solicitar permisos para notificaciones push
