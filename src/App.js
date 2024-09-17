@@ -68,8 +68,8 @@ function App() {
   }, []);
 
   const sendNotification = async (imageUrl) => {
-    const registration = await navigator.serviceWorker.ready;
     console.log('Este es tu agente: ', navigator.userAgent);
+    const registration = await navigator.serviceWorker.ready;
     // Verificar si es un dispositivo Android
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isDesktop = !isAndroid; // Consideramos que si no es Android, es escritorio (aunque podría ser iOS u otro)
