@@ -22,7 +22,14 @@ Esta aplicación permite a los usuarios ingresar un texto y seleccionar un estil
 
 ## **Instalación y Modo de Uso**
 
-No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub Pages**. Con acceder a la URL se puede usar sin problema. El único matiz a tener en cuenta es cuando se descarga la aplicación en dispositivos móviles. En este caso, es necesario conceder permisos para poder recibir notificaciones.
+No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub Pages**. Con acceder a la URL se puede usar sin problema. 
+El único matiz a tener en cuenta es cuando se descarga la aplicación en dispositivos móviles. En este caso, es necesario conceder permisos para poder recibir notificaciones. Para ello nos tendremos que ir al menu superior de google chrome y pulsar los tres puntos. Posteriormente nos vamos a configuracion y una vez dentro a notificaciones para activarlas.
+
+En caso de probarlo en un ordenador concretamente en el navegador google. Habria que permitir las notificaciones tambien. Pero mas importante aun, dentro del Sistema Operativo nos tendremos que ir a las notificaciones y las activamos para el navegador que estemos usando, como se muestra a continuacion:
+
+![image](https://github.com/user-attachments/assets/0d096b21-6793-4e18-92ec-f00a8cd7a387)
+
+
 
 ## **Problemas y Soluciones**
 
