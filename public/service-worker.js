@@ -60,28 +60,26 @@ self.addEventListener('push', event => {
 });
 
 self.addEventListener('notificationclick', event => {
+  console.log('Notificación clickeada');
   event.notification.close();
 
   const imageUrl = event.notification.data ? event.notification.data.imageUrl : null;
+  const imageId = event.notification.data ? event.notification.data.imageId : null; // Agrega un ID único
 
   if (imageUrl) {
     event.waitUntil(
       clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
-        if (clientList.length > 0) {
-          // Enviar el mensaje de descarga a la primera ventana encontrada
-          const client = clientList[0];
+        for (const client of clientList) {
           client.postMessage({
             type: 'DOWNLOAD_IMAGE',
-            imageUrl: imageUrl
+            imageUrl: imageUrl,
+            imageId: imageId // Envía el ID único
           });
-        } else {
-          // Si no hay ventanas abiertas, abrir una nueva ventana
-          clients.openWindow('/ejercicio-zalcu/');
+          return; // Solo enviar el mensaje a la primera ventana encontrada
         }
       })
     );
   } else {
-    // Fallback a la página principal si no hay URL
     event.waitUntil(
       clients.openWindow('/ejercicio-zalcu/')
     );

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';  // Ajusta el nombre del archivo según tu estructura
-
+import './App.css';
 
 function App() {
-  const [inputText, setInputText] = useState('');  // Para el texto ingresado
-  const [imageUrl, setImageUrl] = useState('');    // Para la URL de la imagen generada
-  const [loading, setLoading] = useState(false);   // Para mostrar un mensaje mientras se genera la imagen
-  const [selectedStyle, setSelectedStyle] = useState('imagen');  // Para el estilo seleccionado
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-
-
+  const [inputText, setInputText] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState('imagen');
+  const [lastImageId, setLastImageId] = useState(''); // Añadir estado para ID de la última imagen
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -26,11 +22,7 @@ function App() {
       console.log('Service Worker no es compatible en este navegador.');
     }
   }, []);
-  
-  
-  
 
-  // Solicitar permisos para notificaciones push
   useEffect(() => {
     if ('Notification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission().then(permission => {
@@ -41,47 +33,44 @@ function App() {
     }
   }, []);
 
-
   useEffect(() => {
-    let isHandlingMessage = false; // Variable para controlar el manejo de mensajes
+    let isHandlingMessage = false;
   
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('message', event => {
         if (event.data.type === 'DOWNLOAD_IMAGE') {
-          if (isHandlingMessage) return; // Si ya se está manejando un mensaje, no hacer nada
-  
-          isHandlingMessage = true; // Establecer la variable para indicar que se está manejando un mensaje
+          if (isHandlingMessage) return;
+
+          isHandlingMessage = true;
           const imageUrl = event.data.imageUrl;
-          
-          if (imageUrl) {
-            // Limpiar caracteres inválidos en el nombre del archivo
+          const imageId = event.data.imageId;
+
+          if (imageUrl && imageId === lastImageId) { // Comparar ID de imagen
             const cleanInputText = inputText.replace(/[\/:*?"<>|]/g, '');
             const cleanSelectedStyle = selectedStyle.replace(/[\/:*?"<>|]/g, '');
             const fileName = `${cleanInputText} estilo ${cleanSelectedStyle}.png`;
 
-            console.log('fileName:', fileName); // Verifica el nombre del archivo
+            console.log('fileName:', fileName);
 
-            // Crear un enlace temporal para descargar la imagen
             const a = document.createElement('a');
             a.href = imageUrl;
-            a.download = fileName; // Nombre del archivo para descargar
+            a.download = fileName;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
           }
-  
-          isHandlingMessage = false; // Restablecer la variable después de manejar el mensaje
+
+          isHandlingMessage = false;
         }
       });
     }
-  }, [inputText, selectedStyle]);
-  
-  
+  }, [inputText, selectedStyle, lastImageId]); // Agregar lastImageId a las dependencias
 
-  // Función para enviar una notificación push cuando la imagen está lista
   const sendNotification = async (imageUrl) => {
     const registration = await navigator.serviceWorker.ready;
     if (registration.active) {
+      const imageId = new Date().toISOString(); // Generar un ID único para la imagen
+
       registration.active.postMessage({
         type: 'SHOW_NOTIFICATION',
         title: 'Imagen lista para descargar',
@@ -89,42 +78,39 @@ function App() {
           body: 'Haz clic para descargar tu imagen.',
           icon: imageUrl,
           requireInteraction: true,
-          data: { imageUrl }
+          data: { imageUrl, imageId } // Enviar el ID único
         }
       });
+
+      setLastImageId(imageId); // Establecer el ID de la imagen como la última imagen
     } else {
       console.log('El navegador no soporta notificaciones.');
     }
-    
   };
 
-
-  // Función para enviar el texto y generar la imagen
   const handleGenerateImage = async () => {
     setLoading(true);
-    const apiToken = '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'; 
+    const apiToken = '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';
 
-    // Combinar el input del usuario con el estilo seleccionado
     const prompt = `${inputText}, estilo: ${selectedStyle}`;
 
     try {
       const response = await axios.post(
         'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev',
-        { inputs: prompt }, // El estilo se incluye en el prompt como parte del texto
+        { inputs: prompt },
         {
           headers: {
             Authorization: `Bearer ${apiToken}`,
             'Content-Type': 'application/json',
           },
-          responseType: 'blob',  // Obtener la respuesta en formato de blob (imagen)
+          responseType: 'blob',
         }
       );
       
-      const imageBlob = response.data;  // Obtener el blob de la imagen
-      const imageObjectURL = URL.createObjectURL(imageBlob);  // Crear una URL para mostrar la imagen
-      setImageUrl(imageObjectURL);  // Guardar la URL de la imagen generada
+      const imageBlob = response.data;
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      setImageUrl(imageObjectURL);
 
-      // Enviar una notificación push cuando la imagen esté lista
       sendNotification(imageObjectURL);
     } catch (error) {
       console.error('Error al generar la imagen:', error.response ? error.response.data : error.message);
@@ -133,18 +119,15 @@ function App() {
     }
   };
 
-  
-
-  // Función para borrar el cuadro de texto
   const handleClear = () => {
     setInputText('');
-    setImageUrl('');  // Limpiar también la imagen generada
+    setImageUrl('');
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();  // Prevenir el salto de línea en el textarea
-      handleGenerateImage();  // Ejecutar la generación de la imagen
+      e.preventDefault();
+      handleGenerateImage();
     }
   };
 
