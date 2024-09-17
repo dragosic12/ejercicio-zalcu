@@ -64,7 +64,7 @@ function App() {
             // Crear un enlace temporal para descargar la imagen
             const a = document.createElement('a');
             a.href = imageUrl;
-            a.download = `${inputText} estilo ${selectedStyle}.png`; // Nombre del archivo para descargar
+            a.download = fileName; // Nombre del archivo para descargar
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -74,7 +74,7 @@ function App() {
         }
       });
     }
-  }, []);
+  }, [inputText, selectedStyle]);
   
   
 
