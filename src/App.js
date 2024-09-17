@@ -41,6 +41,23 @@ function App() {
     }
   }, []);
 
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data.type === 'DOWNLOAD_IMAGE') {
+          const a = document.createElement('a');
+          a.href = event.data.imageUrl;
+          a.download = 'imagen.png'; // Nombre del archivo de descarga
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+      });
+    }
+  }, []);
+  
+
   // Función para enviar una notificación push cuando la imagen está lista
   const sendNotification = async (imageUrl) => {
     const registration = await navigator.serviceWorker.ready;
@@ -49,7 +66,7 @@ function App() {
       // Envía un mensaje al Service Worker si está activo
       registration.active.postMessage({
         type: 'SHOW_NOTIFICATION',
-        title: 'Imagen lista para descargar',
+        title: 'Imagen lista para descargar (Movil)',
         options: {
           body: 'Haz clic para descargar tu imagen.',
           icon: imageUrl,
@@ -59,7 +76,7 @@ function App() {
     } else if ('Notification' in window) {
       // Si no está disponible el Service Worker, utiliza una notificación nativa
       if (Notification.permission === 'granted') {
-        const notification = new Notification('Imagen lista para descargar', {
+        const notification = new Notification('Imagen lista para descargar (Ordenador)', {
           body: 'Haz clic para descargar tu imagen.',
           icon: imageUrl,
           requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
