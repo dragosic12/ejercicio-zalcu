@@ -42,26 +42,44 @@ function App() {
   }, []);
 
   // Función para enviar una notificación push cuando la imagen está lista
-  const sendNotification = (imageUrl) => {
-    console.log(Notification.permission);
-    if ('Notification' in window && Notification.permission === 'granted') {
-      const notification = new Notification('Imagen lista para descargar', {
-        body: 'Haz clic para descargar tu imagen.',
-        icon: imageUrl,  // Opcional: Puedes mostrar la imagen generada como ícono de la notificación
-        requireInteraction: true,  // Mantener la notificación visible hasta que se haga clic
+  const sendNotification = async (imageUrl) => {
+    const registration = await navigator.serviceWorker.ready;
+  
+    if (registration.active) {
+      // Envía un mensaje al Service Worker si está activo
+      registration.active.postMessage({
+        type: 'SHOW_NOTIFICATION',
+        title: 'Imagen lista para descargar',
+        options: {
+          body: 'Haz clic para descargar tu imagen.',
+          icon: imageUrl,
+          requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
+        }
       });
-
-      notification.onclick = () => {
-        // Crear un enlace temporal para descargar la imagen
-        const a = document.createElement('a');
-        a.href = imageUrl;
-        a.download = `${inputText} estilo ${selectedStyle}.png`;  // Nombre del archivo que se descargará
-        document.body.appendChild(a);  // Agregar el enlace al DOM
-        a.click();  // Simular el clic para descargar la imagen
-        document.body.removeChild(a);  // Eliminar el enlace después de la descarga
-      };
+    } else if ('Notification' in window) {
+      // Si no está disponible el Service Worker, utiliza una notificación nativa
+      if (Notification.permission === 'granted') {
+        const notification = new Notification('Imagen lista para descargar', {
+          body: 'Haz clic para descargar tu imagen.',
+          icon: imageUrl,
+          requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
+        });
+  
+        notification.onclick = () => {
+          // Descargar la imagen cuando se haga clic en la notificación
+          const a = document.createElement('a');
+          a.href = imageUrl;
+          a.download = `${inputText} estilo ${selectedStyle}.png`;  // Nombre del archivo que se descargará
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+      }
+    } else {
+      console.log('El navegador no soporta notificaciones.');
     }
   };
+  
 
 
   /*
