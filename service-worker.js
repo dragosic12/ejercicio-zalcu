@@ -35,6 +35,16 @@ self.addEventListener('activate', event => {
   );
 });
 
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SHOW_NOTIFICATION') {
+    const { title, options } = event.data;
+    
+    // Mostrar la notificación
+    self.registration.showNotification(title, options);
+  }
+});
+
+
 self.addEventListener('push', event => {
   console.log('Push recibido');
   
