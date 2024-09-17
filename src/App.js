@@ -15,7 +15,8 @@ function App() {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
+      console.log(navigator.serviceWorker);
+      navigator.serviceWorker.register('/ejercicio-zalcu/public/service-worker.js')
         .then(registration => {
           console.log('Service Worker registrado con éxito:', registration);
         })
