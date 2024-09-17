@@ -38,6 +38,16 @@ No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub 
   - **Problema**: La descarga de imágenes en dispositivos móviles no funcionaba.
   - **Solución**: Ajusté el flujo de trabajo de descarga para asegurarme de que las imágenes se descargaran correctamente, tanto en dispositivos móviles como en navegadores web.
 
+- **Problemas con Depuracion en Dispositivos Moviles**:
+  - **Problema**: Supuso un problema la depuración en dispositivos moviles ya que no sabia como hacerlo.
+  - **Solución**: Para depurar:
+
+      Conecta tu teléfono al ordenador.
+      En Chrome en el ordenador, ve a chrome://inspect/#devices
+      En pages le das a la URL que quieras inspeccionar y la inspeccionas
+    ![image](https://github.com/user-attachments/assets/ed565f01-e282-4ddc-b9a7-81f900b1ecfb)
+
+
 - **Error en `createObjectURL`**:
   - **Problema**: Error al crear una URL para el blob de la imagen.
   - **Solución**: Validé que el blob de la imagen estuviera bien formado antes de crear la URL.
