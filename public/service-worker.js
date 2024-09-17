@@ -66,6 +66,7 @@ self.addEventListener('notificationclick', event => {
   const imageUrl = event.notification.data ? event.notification.data.imageUrl : null;
 
   if (imageUrl) {
+    // Enviar un mensaje a la página activa para que maneje la descarga
     event.waitUntil(
       clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
         for (const client of clientList) {
@@ -73,12 +74,12 @@ self.addEventListener('notificationclick', event => {
             type: 'DOWNLOAD_IMAGE',
             imageUrl: imageUrl
           });
-          return; // Enviar el mensaje a la primera ventana encontrada
+          return; // Solo enviar el mensaje a la primera ventana encontrada
         }
       })
     );
   } else {
-    // Fallback a la página principal
+    // Fallback a la página principal si no hay URL
     event.waitUntil(
       clients.openWindow('/ejercicio-zalcu/')
     );
