@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      console.log(navigator.serviceWorker);
       navigator.serviceWorker.register('/ejercicio-zalcu/service-worker.js')
         .then(registration => {
           console.log('Service Worker registrado con éxito:', registration);
@@ -44,6 +43,7 @@ function App() {
 
   // Función para enviar una notificación push cuando la imagen está lista
   const sendNotification = (imageUrl) => {
+    console.log(Notification.permission);
     if ('Notification' in window && Notification.permission === 'granted') {
       const notification = new Notification('Imagen lista para descargar', {
         body: 'Haz clic para descargar tu imagen.',
@@ -71,54 +71,6 @@ function App() {
   Private Key:
   hGdsGngDnVhHiNhK-C9gaPEEPwaY2pCaSnKPgPRSXQE
   */
-
-  const VAPID_PUBLIC_KEY = 'BKYjCwvb9Dlps2i3Qm01LoWDvxa0RGVH_vdPPUUOOcwH7FFW-Q1vAi-X5FLFqtRtn--ueZzl9oesiwgsbaavnk4'; // Reemplaza con tu clave pública VAPID
-
-  const handleSubscribe = async () => {
-    if ('serviceWorker' in navigator) {
-      try {
-        const registration = await navigator.serviceWorker.ready;
-        const subscription = await registration.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
-        });
-
-        console.log('Usuario suscrito:', subscription);
-        setIsSubscribed(true);
-
-        // Envía la suscripción al servidor para que pueda enviar notificaciones push
-        await fetch('/service-worker.js', {
-          method: 'POST',
-          body: JSON.stringify(subscription),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      } catch (error) {
-        console.error('Error al suscribir al usuario:', error);
-      }
-    }
-  };
-
-  // Convierte una clave pública en formato URL base64 a Uint8Array
-  function urlBase64ToUint8Array(base64String) {
-    // Añadir relleno si es necesario
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
-  
-    // Decodificar el Base64 en un array de bytes
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-  
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-  
-    return outputArray;
-  }
-  
 
   // Función para enviar el texto y generar la imagen
   const handleGenerateImage = async () => {
@@ -186,12 +138,6 @@ function App() {
               disabled={loading}
             />
           </div>
-          <div><h1>Notificaciones Push</h1>
-      {isSubscribed ? (
-        <p>Ya estás suscrito a las notificaciones.</p>
-      ) : (
-        <button onClick={handleSubscribe}>Suscribirse a Notificaciones</button>
-      )}</div>
           <div className="mt-3">
             <label htmlFor="selectStyle">Selecciona el estilo:</label>
             <select

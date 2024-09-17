@@ -1,11 +1,10 @@
 const CACHE_NAME = 'image-generator-cache-v1';
 const urlsToCache = [
-  '/ejercicio-zalcu/',               // Raíz de tu app
-  '/ejercicio-zalcu/index.html',     // Asegúrate de usar el subdirectorio
+  '/ejercicio-zalcu/',               
+  '/ejercicio-zalcu/index.html',     
   '/ejercicio-zalcu/manifest.json',
   '/ejercicio-zalcu/logo192.png',
   '/ejercicio-zalcu/logo512.png',
-  // Otros archivos que quieras cachear
 ];
 
 
