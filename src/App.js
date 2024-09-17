@@ -48,7 +48,7 @@ function App() {
           if (imageUrl && imageId === lastImageId) { // Comparar ID de imagen
             const cleanInputText = inputText.replace(/[\/:*?"<>|]/g, '');
             const cleanSelectedStyle = selectedStyle.replace(/[\/:*?"<>|]/g, '');
-            const fileName = `${cleanInputText} estilo ${cleanSelectedStyle}.jpg`;
+            const fileName = `${cleanInputText} estilo ${cleanSelectedStyle}.png`;
 
             console.log('fileName:', fileName);
 
