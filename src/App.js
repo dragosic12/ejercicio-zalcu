@@ -54,6 +54,13 @@ function App() {
           const imageUrl = event.data.imageUrl;
           
           if (imageUrl) {
+            // Limpiar caracteres inválidos en el nombre del archivo
+            const cleanInputText = inputText.replace(/[\/:*?"<>|]/g, '');
+            const cleanSelectedStyle = selectedStyle.replace(/[\/:*?"<>|]/g, '');
+            const fileName = `${cleanInputText} estilo ${cleanSelectedStyle}.png`;
+
+            console.log('fileName:', fileName); // Verifica el nombre del archivo
+
             // Crear un enlace temporal para descargar la imagen
             const a = document.createElement('a');
             a.href = imageUrl;
@@ -90,15 +97,7 @@ function App() {
     }
     
   };
-  
-  
-  /*
-  Public Key:
-  BKYjCwvb9Dlps2i3Qm01LoWDvxa0RGVH_vdPPUUOOcwH7FFW-Q1vAi-X5FLFqtRtn--ueZzl9oesiwgsbaavnk4
 
-  Private Key:
-  hGdsGngDnVhHiNhK-C9gaPEEPwaY2pCaSnKPgPRSXQE
-  */
 
   // Función para enviar el texto y generar la imagen
   const handleGenerateImage = async () => {
