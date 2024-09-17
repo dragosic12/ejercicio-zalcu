@@ -63,15 +63,17 @@ self.addEventListener('notificationclick', event => {
   console.log('Notificación clickeada');
   event.notification.close();
 
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then(clientsArr => {
-      if (clientsArr.length > 0) {
-        // Enviar un mensaje al cliente para manejar la descarga
-        clientsArr[0].postMessage({
-          type: 'DOWNLOAD_IMAGE',
-          imageUrl: event.notification.data.imageUrl // Aquí debes pasar la URL de la imagen
-        });
-      }
-    })
-  );
+  const imageUrl = event.notification.data ? event.notification.data.imageUrl : null;
+
+  if (imageUrl) {
+    // Descargar el blob directamente usando el link
+    event.waitUntil(
+      clients.openWindow(imageUrl)  // Abrir la URL del blob
+    );
+  } else {
+    // Fallback a la página principal
+    event.waitUntil(
+      clients.openWindow('/ejercicio-zalcu/')
+    );
+  }
 });
