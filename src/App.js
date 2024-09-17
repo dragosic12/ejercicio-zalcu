@@ -9,7 +9,7 @@ function App() {
   const [selectedStyle, setSelectedStyle] = useState('imagen');  // Para el estilo seleccionado
 
   if ('serviceWorker' in navigator) {
-    
+    window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
           console.log('Service Worker registrado con éxito:', registration);
@@ -17,7 +17,7 @@ function App() {
         .catch(error => {
           console.log('Error al registrar el Service Worker:', error);
         });
-    
+    });
   } else {
     console.log('Service Worker no es compatible en este navegador.');
   }
