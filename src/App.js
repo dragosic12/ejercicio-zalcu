@@ -42,25 +42,26 @@ function App() {
   }, []);
 
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', event => {
-        if (event.data.type === 'DOWNLOAD_IMAGE') {
-          const a = document.createElement('a');
-          a.href = event.data.imageUrl;
-          a.download = 'imagen.png'; // Nombre del archivo de descarga
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }
-      });
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data.type === 'DOWNLOAD_IMAGE') {
+      try {
+        const a = document.createElement('a');
+        a.href = event.data.imageUrl;
+        a.download = `${inputText} estilo ${selectedStyle}.png`; // Nombre del archivo de descarga
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } catch (error) {
+        console.error('Error al descargar la imagen:', error);
+      }
     }
-  }, []);
+  });
   
 
   // Función para enviar una notificación push cuando la imagen está lista
-  const sendNotification = async (imageUrl) => {
+  const sendNotification = async (imageBlob) => {
     const registration = await navigator.serviceWorker.ready;
+    const imageUrl = URL.createObjectURL(imageBlob); // Crear una URL para el blob
   
     if (registration.active) {
       // Envía un mensaje al Service Worker si está activo
@@ -71,34 +72,14 @@ function App() {
           body: 'Haz clic para descargar tu imagen.',
           icon: imageUrl,
           requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
+          data: { imageUrl } // Pasar la URL del blob al Service Worker
         }
       });
-    } else if ('Notification' in window) {
-      // Si no está disponible el Service Worker, utiliza una notificación nativa
-      if (Notification.permission === 'granted') {
-        const notification = new Notification('Imagen lista para descargar (Ordenador)', {
-          body: 'Haz clic para descargar tu imagen.',
-          icon: imageUrl,
-          requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
-        });
-  
-        notification.onclick = () => {
-          // Descargar la imagen cuando se haga clic en la notificación
-          const a = document.createElement('a');
-          a.href = imageUrl;
-          a.download = `${inputText} estilo ${selectedStyle}.png`;  // Nombre del archivo que se descargará
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        };
-      }
     } else {
       console.log('El navegador no soporta notificaciones.');
     }
   };
   
-
-
   /*
   Public Key:
   BKYjCwvb9Dlps2i3Qm01LoWDvxa0RGVH_vdPPUUOOcwH7FFW-Q1vAi-X5FLFqtRtn--ueZzl9oesiwgsbaavnk4
