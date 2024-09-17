@@ -42,20 +42,33 @@ function App() {
   }, []);
 
 
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data.type === 'DOWNLOAD_IMAGE') {
-      try {
-        const a = document.createElement('a');
-        a.href = event.data.imageUrl;
-        a.download = `${inputText} estilo ${selectedStyle}.png`; // Nombre del archivo de descarga
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      } catch (error) {
-        console.error('Error al descargar la imagen:', error);
-      }
+  useEffect(() => {
+    let isHandlingMessage = false; // Variable para controlar el manejo de mensajes
+  
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data.type === 'DOWNLOAD_IMAGE') {
+          if (isHandlingMessage) return; // Si ya se está manejando un mensaje, no hacer nada
+  
+          isHandlingMessage = true; // Establecer la variable para indicar que se está manejando un mensaje
+          const imageUrl = event.data.imageUrl;
+          
+          if (imageUrl) {
+            // Crear un enlace temporal para descargar la imagen
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            a.download = `${inputText} estilo ${selectedStyle}.png`; // Nombre del archivo para descargar
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+  
+          isHandlingMessage = false; // Restablecer la variable después de manejar el mensaje
+        }
+      });
     }
-  });
+  }, []);
+  
   
 
   // Función para enviar una notificación push cuando la imagen está lista
@@ -64,7 +77,7 @@ function App() {
     if (registration.active) {
       registration.active.postMessage({
         type: 'SHOW_NOTIFICATION',
-        title: 'Imagen lista para descargar (Movil)',
+        title: 'Imagen lista para descargar',
         options: {
           body: 'Haz clic para descargar tu imagen.',
           icon: imageUrl,
