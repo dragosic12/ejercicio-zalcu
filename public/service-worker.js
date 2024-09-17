@@ -1,12 +1,13 @@
 const CACHE_NAME = 'image-generator-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/logo192.png',
-  '/logo512.png',
-  // Agrega aquí otros archivos que quieras cachear
+  '/ejercicio-zalcu/',               // Raíz de tu app
+  '/ejercicio-zalcu/index.html',     // Asegúrate de usar el subdirectorio
+  '/ejercicio-zalcu/manifest.json',
+  '/ejercicio-zalcu/logo192.png',
+  '/ejercicio-zalcu/logo512.png',
+  // Otros archivos que quieras cachear
 ];
+
 
 self.addEventListener('install', event => {
   console.log('Service Worker instalándose...');
