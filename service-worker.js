@@ -62,7 +62,16 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   console.log('Notificación clickeada');
   event.notification.close();
+
   event.waitUntil(
-    clients.openWindow('/')
+    clients.matchAll({ type: 'window' }).then(clientsArr => {
+      if (clientsArr.length > 0) {
+        // Enviar un mensaje al cliente para manejar la descarga
+        clientsArr[0].postMessage({
+          type: 'DOWNLOAD_IMAGE',
+          imageUrl: event.notification.data.imageUrl // Aquí debes pasar la URL de la imagen
+        });
+      }
+    })
   );
 });
