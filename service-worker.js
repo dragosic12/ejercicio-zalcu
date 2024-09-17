@@ -60,7 +60,6 @@ self.addEventListener('push', event => {
 });
 
 self.addEventListener('notificationclick', event => {
-  console.log('Notificación clickeada');
   event.notification.close();
 
   const imageUrl = event.notification.data ? event.notification.data.imageUrl : null;
