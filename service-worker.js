@@ -66,9 +66,16 @@ self.addEventListener('notificationclick', event => {
   const imageUrl = event.notification.data ? event.notification.data.imageUrl : null;
 
   if (imageUrl) {
-    // Descargar el blob directamente usando el link
     event.waitUntil(
-      clients.openWindow(imageUrl)  // Abrir la URL del blob
+      clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+        for (const client of clientList) {
+          client.postMessage({
+            type: 'DOWNLOAD_IMAGE',
+            imageUrl: imageUrl
+          });
+          return; // Enviar el mensaje a la primera ventana encontrada
+        }
+      })
     );
   } else {
     // Fallback a la página principal
