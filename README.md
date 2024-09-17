@@ -22,14 +22,17 @@ Esta aplicación permite a los usuarios ingresar un texto y seleccionar un estil
 
 ## **Instalación y Modo de Uso**
 
-No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub Pages**. Con acceder a la URL se puede usar sin problema. 
-El único matiz a tener en cuenta es cuando se descarga la aplicación en dispositivos móviles. En este caso, es necesario conceder permisos para poder recibir notificaciones. Para ello nos tendremos que ir al menu superior de google chrome y pulsar los tres puntos. Posteriormente nos vamos a configuracion y una vez dentro a notificaciones para activarlas.
+No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub Pages**. Con acceder a la siguiente URL se puede usar: **https://dragosic12.github.io/ejercicio-zalcu/**
 
-En caso de probarlo en un ordenador concretamente en el navegador google. Habria que permitir las notificaciones tambien. Pero mas importante aun, dentro del Sistema Operativo nos tendremos que ir a las notificaciones y las activamos para el navegador que estemos usando, como se muestra a continuacion:
+En caso de ejecutar la aplicación en el navegador Google Chrome de dispositivos móviles, será necesario activar las notificaciones. Para ello, sigue estos pasos:
+- Accede al menú superior de Google Chrome y pulsa los tres puntos.
+- Ve a **Configuración** y, dentro de este apartado, a **Notificaciones** para activarlas.
+
+Si decides descargar la aplicación en dispositivos Android, también será necesario activar las notificaciones de esa aplicación. 
+
+En caso de probarlo en un ordenador con Google Chrome, deberás permitir las notificaciones a través del navegador, además de activar las notificaciones en el **Sistema Operativo**.
 
 ![image](https://github.com/user-attachments/assets/0d096b21-6793-4e18-92ec-f00a8cd7a387)
-
-
 
 ## **Problemas y Soluciones**
 
@@ -45,23 +48,21 @@ En caso de probarlo en un ordenador concretamente en el navegador google. Habria
   - **Problema**: La descarga de imágenes en dispositivos móviles no funcionaba.
   - **Solución**: Ajusté el flujo de trabajo de descarga para asegurarme de que las imágenes se descargaran correctamente, tanto en dispositivos móviles como en navegadores web.
 
-- **Problemas con Depuracion en Dispositivos Moviles**:
-  - **Problema**: Supuso un problema la depuración en dispositivos moviles ya que no sabia como hacerlo.
-  - **Solución**: Consegui depurar siguiendo los siguientes pasos:
-      Habilitar el debuuger a traves de cable en el dispositivo movil. Esto se hace a traves de las opciones de desarrollo que dependiendo del dispositivo movil se activan de una forma u otra. En mi caso
-      pulsando 7 veces la verision del movil en el "apartado sobre el teléfono"
-      Conecta tu teléfono al ordenador.
-      En Chrome en el ordenador, ve a chrome://inspect/#devices
-      En pages le das a la URL que quieras inspeccionar y la inspeccionas
-    
-    ![image](https://github.com/user-attachments/assets/ed565f01-e282-4ddc-b9a7-81f900b1ecfb)
+- **Problemas con Depuración en Dispositivos Móviles**:
+  - **Problema**: No sabía cómo depurar la aplicación en dispositivos móviles.
+  - **Solución**: Seguí los siguientes pasos para habilitar el depurador a través de un cable:
+    - Activar las **Opciones de desarrollador** en el dispositivo móvil.
+    - Conectar el teléfono al ordenador.
+    - Abrir Chrome en el ordenador y acceder a **chrome://inspect/#devices** para inspeccionar la URL deseada.
 
-- **Problemas con las rutas en el manifest.json**:
-  - **Problema**: Al debuggear no me cargaba el service-worker.js por lo que me di cuenta que el problema estaba en las urlsToCache de service-worker-js.
-  - **Solución**:Se solucionó añadiendo la ruta "/ejercicio-zalcu/" a todos los ficheros.
+![image](https://github.com/user-attachments/assets/ed565f01-e282-4ddc-b9a7-81f900b1ecfb)
+
+- **Problemas con las rutas en el `manifest.json`**:
+  - **Problema**: El `service-worker.js` no se cargaba correctamente debido a rutas incorrectas.
+  - **Solución**: Ajusté las rutas añadiendo **"/ejercicio-zalcu/"** a todos los ficheros en las `urlsToCache`.
 
 - **Error en `createObjectURL`**:
-  - **Problema**: Error al crear una URL para el blob de la imagen.
+  - **Problema**: Se producía un error al crear una URL para el blob de la imagen.
   - **Solución**: Validé que el blob de la imagen estuviera bien formado antes de crear la URL.
 
 ## **Aprendizajes**
