@@ -61,24 +61,29 @@ function App() {
   // Función para enviar una notificación push cuando la imagen está lista
   const sendNotification = async (imageBlob) => {
     const registration = await navigator.serviceWorker.ready;
-    const imageUrl = URL.createObjectURL(imageBlob); // Crear una URL para el blob
   
-    if (registration.active) {
-      // Envía un mensaje al Service Worker si está activo
-      registration.active.postMessage({
-        type: 'SHOW_NOTIFICATION',
-        title: 'Imagen lista para descargar (Movil)',
-        options: {
-          body: 'Haz clic para descargar tu imagen.',
-          icon: imageUrl,
-          requireInteraction: true, // Mantener la notificación visible hasta que se haga clic
-          data: { imageUrl } // Pasar la URL del blob al Service Worker
-        }
-      });
+    if (imageBlob && imageBlob instanceof Blob) {
+      const imageUrl = URL.createObjectURL(imageBlob);
+  
+      if (registration.active) {
+        registration.active.postMessage({
+          type: 'SHOW_NOTIFICATION',
+          title: 'Imagen lista para descargar (Movil)',
+          options: {
+            body: 'Haz clic para descargar tu imagen.',
+            icon: imageUrl,
+            requireInteraction: true,
+            data: { imageUrl }
+          }
+        });
+      } else {
+        console.log('El navegador no soporta notificaciones.');
+      }
     } else {
-      console.log('El navegador no soporta notificaciones.');
+      console.error('imageBlob no es un objeto Blob válido.');
     }
   };
+  
   
   /*
   Public Key:
