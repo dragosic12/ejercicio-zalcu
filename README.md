@@ -40,13 +40,18 @@ No es necesaria la instalación, ya que la aplicación se encuentra en **GitHub 
 
 - **Problemas con Depuracion en Dispositivos Moviles**:
   - **Problema**: Supuso un problema la depuración en dispositivos moviles ya que no sabia como hacerlo.
-  - **Solución**: Para depurar:
-
+  - **Solución**: Consegui depurar siguiendo los siguientes pasos:
+      Habilitar el debuuger a traves de cable en el dispositivo movil. Esto se hace a traves de las opciones de desarrollo que dependiendo del dispositivo movil se activan de una forma u otra. En mi caso
+      pulsando 7 veces la verision del movil en el "apartado sobre el teléfono"
       Conecta tu teléfono al ordenador.
       En Chrome en el ordenador, ve a chrome://inspect/#devices
       En pages le das a la URL que quieras inspeccionar y la inspeccionas
+    
     ![image](https://github.com/user-attachments/assets/ed565f01-e282-4ddc-b9a7-81f900b1ecfb)
 
+- **Problemas con las rutas en el manifest.json**:
+  - **Problema**: Al debuggear no me cargaba el service-worker.js por lo que me di cuenta que el problema estaba en las urlsToCache de service-worker-js.
+  - **Solución**:Se solucionó añadiendo la ruta "/ejercicio-zalcu/" a todos los ficheros.
 
 - **Error en `createObjectURL`**:
   - **Problema**: Error al crear una URL para el blob de la imagen.
