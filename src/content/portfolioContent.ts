@@ -7,15 +7,15 @@ export const portfolioContent: PortfolioContent = {
       en: 'Dragos Camarasan | Technical Portfolio',
     },
     description: {
-      es: 'Portfolio bilingüe con proyectos académicos y experiencia profesional en software e integración industrial.',
-      en: 'Bilingual portfolio with academic projects and professional software and industrial integration experience.',
+      es: 'Portfolio bilingüe con proyectos técnicos y experiencia actual en implantación software en Icaria.',
+      en: 'Bilingual portfolio with technical projects and current software implantation experience at Icaria.',
     },
   },
   profile: {
     name: 'Dragos Ionut Camarasan',
     role: {
-      es: 'Ingeniero de Software Junior',
-      en: 'Junior Software Engineer',
+      es: 'Junior Implantation Software en Icaria',
+      en: 'Junior Implantation Software at Icaria',
     },
     location: {
       es: 'Madrid, España',
@@ -26,21 +26,21 @@ export const portfolioContent: PortfolioContent = {
       en: 'Software engineering with a product mindset.',
     },
     subheadline: {
-      es: 'C++, React, automatización industrial y foco en soluciones fiables para negocio real.',
-      en: 'C++, React, industrial automation, and a focus on reliable software for real business use cases.',
+      es: 'C++, React, Java, Docker, Icaria TDM y foco en soluciones fiables para negocio real.',
+      en: 'C++, React, Java, Docker, Icaria TDM, and a focus on reliable software for real business use cases.',
     },
     shortBio: {
-      es: 'Graduado en Ingeniería Informática por la UCM. He trabajado en Siemens en entorno HMI/SCADA y en soporte técnico universitario. Busco mi primera etapa profesional full-time como desarrollador software.',
-      en: 'Computer Engineering graduate from UCM. I worked at Siemens in HMI/SCADA environments and in university IT support. I am looking for my first full-time software engineering role.',
+      es: 'Graduado en Ingeniería Informática por la UCM. Actualmente trabajo como Junior Implantation Software en Icaria, tras experiencia previa en Siemens (HMI/SCADA) y soporte técnico universitario.',
+      en: 'Computer Engineering graduate from UCM. I currently work as Junior Implantation Software at Icaria, after previous experience at Siemens (HMI/SCADA) and university IT support.',
     },
-    photo: '/ejercicio-zalcu/assets/profile/Imagen-CV.png',
+    photo: '/generador-de-imagenes/assets/profile/Imagen-CV.png',
     terminalLines: [
       '$ whoami  # dragos-camarasan',
-      '$ stack --primary  # C++ React TypeScript SQL',
-      '$ domain --focus  # software_engineering',
-      '$ industry --experience  # HMI SCADA WinCC Unified',
+      '$ stack --primary  # C++ React Java Docker SQL',
+      '$ domain --focus  # software_implementation',
+      '$ industry --experience  # Icaria-TDM GDPR HMI SCADA',
       '$ values --set  # quality reliability teamwork',
-      '$ status --now  # open_to_work',
+      '$ status --now  # working_at_icaria',
     ],
   },
   about: {
@@ -56,6 +56,10 @@ export const portfolioContent: PortfolioContent = {
       {
         es: 'Durante mis prácticas en Siemens trabajé en proyectos industriales con WinCC Unified y SCADA, participando en integración de sistemas, pruebas, soporte técnico y automatización de tareas.',
         en: 'During my internship at Siemens, I worked on industrial projects with WinCC Unified and SCADA, participating in system integration, testing, technical support, and task automation.',
+      },
+      {
+        es: 'Actualmente trabajo en Icaria como Junior Implantation Software, implantando soluciones en cliente y operando con herramientas como Icaria TDM, módulos GDPR, Java y Docker.',
+        en: 'I currently work at Icaria as Junior Implantation Software, implementing client solutions and working with tools such as Icaria TDM, GDPR modules, Java, and Docker.',
       },
       {
         es: 'También presté soporte técnico en el laboratorio de informática de la universidad, gestionando incidencias, mantenimiento y configuración de aulas para docencia y evaluación.',
@@ -102,7 +106,7 @@ export const portfolioContent: PortfolioContent = {
             en: 'Automated repetitive tasks with reusable scripts and team standardization support.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/siemens.svg'],
+        images: ['/generador-de-imagenes/assets/projects/siemens.svg'],
         links: {
           privateRepoLabel: 'Repositorio interno / Internal repository',
         },
@@ -136,7 +140,7 @@ export const portfolioContent: PortfolioContent = {
             en: 'Collaborated with the IT team to improve lab classroom stability.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/lab.svg'],
+        images: ['/generador-de-imagenes/assets/projects/lab.svg'],
         links: {},
       },
       {
@@ -168,9 +172,9 @@ export const portfolioContent: PortfolioContent = {
             en: 'Integrated as an interactive lab inside this portfolio for real desktop and mobile usage.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/pwa.svg'],
+        images: ['/generador-de-imagenes/assets/projects/pwa.svg'],
         links: {
-          publicRepo: 'https://github.com/dragosic12/ejercicio-zalcu',
+          publicRepo: 'https://github.com/dragosic12/generador-de-imagenes',
         },
       },
       {
@@ -202,7 +206,7 @@ export const portfolioContent: PortfolioContent = {
             en: 'Practical automation applied to a personal productivity use case.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/bot.svg'],
+        images: ['/generador-de-imagenes/assets/projects/bot.svg'],
         links: {},
       },
       {
@@ -234,7 +238,7 @@ export const portfolioContent: PortfolioContent = {
             en: 'Solid foundation transferable to professional backend and systems environments.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/cpp.svg'],
+        images: ['/generador-de-imagenes/assets/projects/cpp.svg'],
         links: {},
       },
       {
@@ -266,7 +270,7 @@ export const portfolioContent: PortfolioContent = {
             en: 'Technical documentation and iterative improvement approach.',
           },
         ],
-        images: ['/ejercicio-zalcu/assets/projects/tfg.svg'],
+        images: ['/generador-de-imagenes/assets/projects/tfg.svg'],
         links: {
           privateRepoLabel: 'Repositorio privado / Private repository',
         },
@@ -275,12 +279,12 @@ export const portfolioContent: PortfolioContent = {
   },
   imageLab: {
     title: {
-      es: 'Laboratorio IA',
-      en: 'AI Lab',
+      es: 'Generador de imágenes',
+      en: 'Image generator',
     },
     intro: {
-      es: 'Generador de imágenes integrado en la web. Introduce tu token de Hugging Face (se guarda localmente solo si tú lo decides), escribe un prompt y genera la imagen.',
-      en: 'Image generator integrated into the website. Provide your Hugging Face token (stored locally only if you choose), write a prompt, and generate an image.',
+      es: 'Módulo de generación de imágenes integrado en el portfolio. Introduce tu token de Hugging Face (se guarda localmente solo si tú lo decides), escribe un prompt y genera la imagen.',
+      en: 'Image generation module integrated into the portfolio. Provide your Hugging Face token (stored locally only if you choose), write a prompt, and generate the image.',
     },
     tokenLabel: {
       es: 'Token de Hugging Face',
@@ -419,7 +423,7 @@ export const portfolioContent: PortfolioContent = {
           es: 'Datos y Herramientas',
           en: 'Data and Tooling',
         },
-        items: ['MySQL', 'MongoDB', 'Oracle SQL Developer', 'Git', 'Docker', 'Linux básico'],
+        items: ['MySQL', 'MongoDB', 'Oracle SQL Developer', 'Git', 'Docker', 'Linux básico', 'Icaria TDM', 'GDPR'],
       },
       {
         name: {
@@ -455,6 +459,10 @@ export const portfolioContent: PortfolioContent = {
         es: 'Estoy especialmente interesado en roles junior de desarrollo software, implementación técnica o integración de sistemas.',
         en: 'I am particularly interested in junior roles in software development, technical implementation, or system integration.',
       },
+      {
+        es: 'Mi objetivo es consolidar mi etapa actual en Icaria y escalar hacia responsabilidades de implementación y producto cada vez más completas.',
+        en: 'My goal is to consolidate my current stage at Icaria and grow toward broader implementation and product responsibilities.',
+      },
     ],
   },
   contact: {
@@ -479,14 +487,14 @@ export const portfolioContent: PortfolioContent = {
     github: 'https://github.com/dragosic12',
     linkedin: undefined,
     email: 'dragosic12@gmail.com',
-    cv: '/ejercicio-zalcu/assets/cv/CV_DragosC.pdf',
+    cv: '/generador-de-imagenes/assets/cv/CV_DragosIcaria.pdf',
   },
   ui: {
     nav: [
       { id: 'home', label: { es: 'Inicio', en: 'Home' } },
       { id: 'about', label: { es: 'Sobre mí', en: 'About' } },
       { id: 'projects', label: { es: 'Proyectos', en: 'Projects' } },
-      { id: 'image-lab', label: { es: 'Lab IA', en: 'AI Lab' } },
+      { id: 'image-lab', label: { es: 'Generador', en: 'Generator' } },
       { id: 'skills', label: { es: 'Skills', en: 'Skills' } },
       { id: 'focus', label: { es: 'Enfoque', en: 'Focus' } },
       { id: 'contact', label: { es: 'Contacto', en: 'Contact' } },
@@ -522,4 +530,5 @@ export const portfolioContent: PortfolioContent = {
     },
   },
 };
+
 

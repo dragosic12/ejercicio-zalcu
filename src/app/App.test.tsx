@@ -14,7 +14,7 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: /Ingeniería de software con mentalidad de producto/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Ver proyectos/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Laboratorio IA/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: /Generador de im[aá]genes/i })).toBeInTheDocument();
   });
 
   it('switches locale to English and persists preference', () => {

@@ -2,7 +2,7 @@
 
 Portfolio one-page bilingüe (ES/EN) orientado a empresas y reclutadores, con estética técnica tipo terminal moderno.
 
-Incluye una sección integrada `Laboratorio IA` (generador de imágenes) dentro del propio portfolio.
+Incluye una sección integrada `Generador de imágenes` dentro del propio portfolio.
 
 ## Stack
 
